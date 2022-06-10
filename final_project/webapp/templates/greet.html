@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block head %}
+<!--<script>
+    function validateForm() {
+        var x = document.forms["S_ID"]["S_ID"].value;
+        if (x == "") {
+            alert("have to key in something to search, cannot be empty.");
+            return false;
+        }
+    }
+</script>-->
+{% endblock %}
+
+{% block body %}
+
+<h1>
+    警政 - 刑事案件（證物）管理系統
+</h1>
+
+<h2>
+    welcome back, {{ name }} from {{ place }}
+</h2>
+
+
+<span class="Suspect">
+    <p>search suspect with suspect's ID.</p>
+    <form action="/search" method="post" target="_blank" onsubmit="return validateForm()" required name="S_ID">
+        <input autocomplete="on" autofocus name="S_ID" placeholder="S_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+    <form action="/insert_suspect" method="post">
+        <input type="submit" value="insert_new_suspect">
+    </form>
+</span>
+<br>
+<span class="Case">
+    <p>search case with case's ID</p>
+    <form action="/search" method="post" target="_blank" onsubmit="return validateForm()" required>
+        <input autocomplete="on" autofocus name="Case_ID" placeholder="Case_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+    <form action="/insert_case" method="post">
+        <input type="submit" value="insert_new_case">
+    </form>
+</span>
+<br>
+<span class="DExhibit">
+    <p>search drug with d_exhibit's ID</p>
+    <form action="/search" method="post" target="_blank" onsubmit="return validateForm()" required>
+        <input autocomplete="on" autofocus name="DExhibit_ID" placeholder="DExhibit_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+    <form action="/insert_d_exhibit" method="post">
+        <input type="submit" value="insert_new_d_exhibit">
+    </form>
+</span>
+<br>
+<span class="Police">
+    <p>search police with police's ID</p>
+    <form action="/search" method="post" target="_blank" onsubmit="return validateForm()" required>
+        <input autocomplete="on" autofocus name="P_ID" placeholder="P_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+    <form action="/insert_police" method="post">
+        <input type="submit" value="insert_new_police">
+    </form>
+</span>
+<br>
+<span class="Seizure">
+    <p>search seizure with SCase's ID</p>
+    <form action="/search" method="post" target="_blank" onsubmit="return validateForm()" required>
+        <input autocomplete="on" autofocus name="SCase_ID" placeholder="SCase_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+    <form action="/insert_seizure" method="post">
+        <input type="submit" value="insert_new_seizure">
+    </form>
+</span>
+<br>
+<span class="search_tips">
+    <p>* or type in "ALL", to return whole table instead of just one case.</p>
+</span>
+<br>
+<span class="advanced">
+    <p>>&nbsp<a href="/advanced">advanced search</a></p>
+</span>
+{% endblock %}

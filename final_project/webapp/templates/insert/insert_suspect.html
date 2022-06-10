@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<span class="insertion">
+    <form action="/insert" method="post">
+        <input autocomplete="on" autofocus name="insert_suspect_S_ID" placeholder="insert_suspect_S_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Name" placeholder="insert_suspect_S_Name"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Gender" placeholder="insert_suspect_S_Gender"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Birth" placeholder="insert_suspect_S_Birth"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Birthplace" placeholder="insert_suspect_S_Birthplace"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Occ" placeholder="insert_suspect_S_Occ"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_S_Add" placeholder="insert_suspect_S_Add"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_Education_Level"
+            placeholder="insert_suspect_Education_Level" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_Phone_Num" placeholder="insert_suspect_Phone_Num"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_Economic_Status"
+            placeholder="insert_suspect_Economic_Status" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_Recidivism" placeholder="insert_suspect_Recidivism"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_suspect_Urine_Routine"
+            placeholder="insert_suspect_Urine_Routine" retype="text"><br>
+
+        <input type="submit" value="insert">
+    </form>
+</span>
+
+{% endblock %}

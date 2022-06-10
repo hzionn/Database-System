@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<span class="insertion">
+    <form action="/insert" method="post">
+        <input autocomplete="on" autofocus name="insert_seizure_SCase_ID" placeholder="insert_seizure_SCase_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Exhibit_ID" placeholder="insert_seizure_Exhibit_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Related_Ob_1" placeholder="insert_seizure_Related_Ob_1"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Related_Ob_2" placeholder="insert_seizure_Related_Ob_2"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Related_Ob_3" placeholder="insert_seizure_Related_Ob_3"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Related_Ob_4" placeholder="insert_seizure_Related_Ob_4"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_seizure_Related_Ob_5" placeholder="insert_seizure_Related_Ob_5"
+            retype="text"><br>
+
+        <input type="submit" value="insert">
+    </form>
+</span>
+
+{% endblock %}

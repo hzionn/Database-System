@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<span class="insertion">
+    <form action="/insert" method="post">
+        <input autocomplete="on" autofocus name="insert_police_P_Name" placeholder="insert_police_P_Name"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_police_Department" placeholder="insert_police_Department"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_police_P_ID" placeholder="insert_police_P_ID" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_police_Degree" placeholder="insert_police_Degree"
+            retype="text"><br>
+
+        <input type="submit" value="insert">
+    </form>
+</span>
+
+{% endblock %}

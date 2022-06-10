@@ -1,0 +1,58 @@
+h1 {
+    color: rgb(232, 32, 32);
+    text-align: center;
+    font-size: 40pt;
+}
+
+p {
+    text-align: center;
+    font-size: 15pt;
+}
+
+h2 {
+    text-align: center;
+    color: black;
+    font-size: 20pt;
+}
+
+form {
+    text-align: center;
+}
+
+.missing_info_msg p {
+    text-align: center;
+    font-size: 30pt;
+    margin-top: 5%;
+}
+
+.search_tips p {
+    font-style: italic;
+    margin-top: 5%;
+}
+
+.insertion input {
+    margin-top: 1%;
+    width: 20%;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+table {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.advanced {
+    text-align: center;
+}
+
+.n_place p {
+    text-align: left;
+    margin-left: 3%;
+}

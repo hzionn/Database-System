@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Drug Exhibit</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">DCase_ID</th>
+            <th width="100">DExhibit_ID</th>
+            <th width="100">Drug</th>
+            <th width="100">NetWeight</th>
+            <th width="100">Weight</th>
+            <th width="100">PreTestResult</th>
+            <th width="100">ProTestResult</th>
+            <th width="100"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_d_exhibit %}
+        <tr>
+            <td>{{ r.DCase_ID }}</td>
+            <td>{{ r.DExhibit_ID }}</td>
+            <td>{{ r.Drug }}</td>
+            <td>{{ r.NetWeight }}</td>
+            <td>{{ r.Weight }}</td>
+            <td>{{ r.PreTestResult }}</td>
+            <td>{{ r.ProTestResult }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="dexhibit_ID" type="hidden" value="{{ r.DExhibit_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+flask==1.1.2
+markupsafe==1.1.1
+flask-sqlalchemy==2.5.1
+cs50==9.0.0

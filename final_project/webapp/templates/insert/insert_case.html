@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<span class="insertion">
+    <form action="/insert" method="post">
+        <input autocomplete="on" autofocus name="insert_case_Case_Name" placeholder="insert_case_Case_Name"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Case_ID" placeholder="insert_case_Case_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Case_Type" placeholder="insert_case_Case_Type"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Sus_ID" placeholder="insert_case_Sus_ID" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_TimeOfOccur" placeholder="insert_case_TimeOfOccur"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_PlaceOfOccur" placeholder="insert_case_PlaceOfOccur"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Drug_ID" placeholder="insert_case_Drug_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Evidence_ID" placeholder="insert_case_Evidence_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Police_ID1" placeholder="insert_case_Police_ID1"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Police_ID2" placeholder="insert_case_Police_ID2"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_case_Police_ID3" placeholder="insert_case_Police_ID3"
+            retype="text"><br>
+
+        <input type="submit" value="insert">
+    </form>
+</span>
+
+{% endblock %}

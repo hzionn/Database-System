@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<span class="insertion">
+    <form action="/insert" method="post">
+        <input autocomplete="on" autofocus name="insert_d_exhibit_DCase_ID" placeholder="insert_d_exhibit_DCase_ID"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_DExhibit_ID"
+            placeholder="insert_d_exhibit_DExhibit_ID" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_Drug" placeholder="insert_d_exhibit_Drug"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_NetWeight" placeholder="insert_d_exhibit_NetWeight"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_Weight" placeholder="insert_d_exhibit_Weight"
+            retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_PreTestResult"
+            placeholder="insert_d_exhibit_PreTestResult" retype="text"><br>
+        <input autocomplete="on" autofocus name="insert_d_exhibit_ProTestResult"
+            placeholder="insert_d_exhibit_ProTestResult" retype="text"><br>
+
+        <input type="submit" value="insert">
+    </form>
+</span>
+
+{% endblock %}

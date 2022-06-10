@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+result case advanced
+
+<!--case's table-->
+<table>
+    <thead>
+        <tr>
+            <th width="100">Case_Name</th>
+            <th width="100">Case_ID</th>
+            <th width="100">Case_Type</th>
+            <th width="100">Sus_ID</th>
+            <th width="100">TimeOfOccur</th>
+            <th width="100">PlaceOfOccur</th>
+            <th width="100">Drug_ID</th>
+            <th width="100">Evidence_ID</th>
+            <th width="100">Police_ID1</th>
+            <th width="100">Police_ID2</th>
+            <th width="100">Police_ID3</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_c_advanced %}
+        <tr>
+            <td>{{ r.Case_Name }}</td>
+            <td>{{ r.Case_ID }}</td>
+            <td>{{ r.Case_Type }}</td>
+            <td>{{ r.Sus_ID }}</td>
+            <td>{{ r.TimeOfOccur }}</td>
+            <td>{{ r.PlaceOfOccur }}</td>
+            <td>{{ r.Drug_ID }}</td>
+            <td>{{ r.Evidence_ID }}</td>
+            <td>{{ r.Police_ID1 }}</td>
+            <td>{{ r.Police_ID2 }}</td>
+            <td>{{ r.Police_ID3 }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="case_ID" type="hidden" value="{{ r.Case_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!--DrugExhihit's table-->
+<table>
+    <thead>
+        <tr>
+            <th width="100">DCase_ID</th>
+            <th width="100">DExhibit_ID</th>
+            <th width="100">Drug</th>
+            <th width="100">NetWeight</th>
+            <th width="100">Weight</th>
+            <th width="100">PreTestResult</th>
+            <th width="100">ProTestResult</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_d_advanced %}
+        <tr>
+            <td>{{ r.DCase_ID }}</td>
+            <td>{{ r.DExhibit_ID }}</td>
+            <td>{{ r.Drug }}</td>
+            <td>{{ r.NetWeight }}</td>
+            <td>{{ r.Weight }}</td>
+            <td>{{ r.PreTestResult }}</td>
+            <td>{{ r.ProTestResult }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="dexhibit_ID" type="hidden" value="{{ r.DExhibit_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!--seizure table-->
+<table>
+    <thead>
+        <tr>
+            <th width="100">SCase_ID</th>
+            <th width="100">Exhibit_ID</th>
+            <th width="100">Related_Ob_1</th>
+            <th width="100">Related_Ob_2</th>
+            <th width="100">Related_Ob_3</th>
+            <th width="100">Related_Ob_4</th>
+            <th width="100">Related_Ob_5</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_s_advanced %}
+        <tr>
+            <td>{{ r.SCase_ID }}</td>
+            <td>{{ r.Exhibit_ID }}</td>
+            <td>{{ r.Related_Ob_1 }}</td>
+            <td>{{ r.Related_Ob_2 }}</td>
+            <td>{{ r.Related_Ob_3 }}</td>
+            <td>{{ r.Related_Ob_4 }}</td>
+            <td>{{ r.Related_Ob_5 }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="scase_id" type="hidden" value="{{ r.SCase_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1>
+    警政 - 刑事案件（證物）管理系統
+</h1>
+
+<h2>
+    welcome back, {{ name }} from {{ place }}
+</h2>
+
+<h3>> advanced search</h3>
+
+<span class="all_in_one">
+    <p>search CRIMINAL_CASE & DRUG_EXHIBIT & SEIZURE_of_EXHIBIT with Case_ID.</p>
+    <form action="/advanced_search" method="post" target="_blank" onsubmit="return validateForm()" required
+        name="Case_ID">
+        <input autocomplete="on" autofocus name="Case_ID" placeholder="Case_ID" retype="text">
+        <input type="submit" value="search">
+    </form>
+</span>
+<br>
+<span>
+    <p>search CRIMINAL_CASE with PlaceOfOccur.</p>
+    <form action="/advanced_search" method="post" target="_blank">
+        <select name="place_of_occur">
+            <option disabled selected>place_of_occur</option>
+            {% for place in places %}
+            <option>{{ place }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="search">
+    </form>
+</span>
+{% endblock %}

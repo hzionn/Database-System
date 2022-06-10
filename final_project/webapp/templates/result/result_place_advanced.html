@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+result place advanced
+
+<span class="n_place">
+    {% for c in count %}
+    <p>total of place: {{ c['COUNT(*)'] }}</p>
+    {% endfor %}
+</span>
+
+<!--case's table-->
+<table>
+    <thead>
+        <tr>
+            <th width="100">Case_Name</th>
+            <th width="100">Case_ID</th>
+            <th width="100">Case_Type</th>
+            <th width="100">Sus_ID</th>
+            <th width="100">TimeOfOccur</th>
+            <th width="100">PlaceOfOccur</th>
+            <th width="100">Drug_ID</th>
+            <th width="100">Evidence_ID</th>
+            <th width="100">Police_ID1</th>
+            <th width="100">Police_ID2</th>
+            <th width="100">Police_ID3</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_place_advanced %}
+        <tr>
+            <td>{{ r.Case_Name }}</td>
+            <td>{{ r.Case_ID }}</td>
+            <td>{{ r.Case_Type }}</td>
+            <td>{{ r.Sus_ID }}</td>
+            <td>{{ r.TimeOfOccur }}</td>
+            <td>{{ r.PlaceOfOccur }}</td>
+            <td>{{ r.Drug_ID }}</td>
+            <td>{{ r.Evidence_ID }}</td>
+            <td>{{ r.Police_ID1 }}</td>
+            <td>{{ r.Police_ID2 }}</td>
+            <td>{{ r.Police_ID3 }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="case_ID" type="hidden" value="{{ r.Case_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

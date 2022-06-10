@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Suspects</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th width="80">S_ID</th>
+            <th width="90">S_Name</th>
+            <th width="100">S_Gender</th>
+            <th width="100">S_Birth</th>
+            <th width="100">S_Birthplace</th>
+            <th width="80">S_Occ</th>
+            <th width="100">S_Add</th>
+            <th width="110">Education_Level</th>
+            <th width="100">Phone_Num</th>
+            <th width="110">Economic_Status</th>
+            <th width="100">Recidivism</th>
+            <th width="110">Urine_Routine</th>
+            <th width="80"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_suspect %}
+        <tr>
+            <td>{{ r.S_ID }}</td>
+            <td>{{ r.S_Name }}</td>
+            <td>{{ r.S_Gender }}</td>
+            <td>{{ r.S_Birth }}</td>
+            <td>{{ r.S_Birthplace }}</td>
+            <td>{{ r.S_Occ }}</td>
+            <td>{{ r.S_ADD }}</td>
+            <td>{{ r.Education_Level }}</td>
+            <td>{{ r.Phone_Num }}</td>
+            <td>{{ r.Economic_Status }}</td>
+            <td>{{ r.Recidivism }}</td>
+            <td>{{ r.Urine_Routine }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="s_id" type="hidden" value="{{ r.S_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

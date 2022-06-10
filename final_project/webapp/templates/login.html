@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1>
+    警政 - 刑事案件（證物）管理系統
+</h1>
+
+<h2>
+    Login Page.
+</h2>
+
+<span class="login_msg">
+    <p>
+        Use your name & work place to login.
+    </p>
+</span>
+
+<form action="/greet" method="post">
+
+    <input autocomplete="on" autofocus name="name" placeholder="Name" retype="text">
+
+    <select name="place">
+        <option disabled selected>place</option>
+        {% for place in places %}
+        <option>{{ place }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="login">
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Seizure</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">SCase_ID</th>
+            <th width="100">Exhibit_ID</th>
+            <th width="100">Related_Ob_1</th>
+            <th width="100">Related_Ob_2</th>
+            <th width="100">Related_Ob_3</th>
+            <th width="100">Related_Ob_4</th>
+            <th width="100">Related_Ob_5</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_seizure %}
+        <tr>
+            <td>{{ r.SCase_ID }}</td>
+            <td>{{ r.Exhibit_ID }}</td>
+            <td>{{ r.Related_Ob_1 }}</td>
+            <td>{{ r.Related_Ob_2 }}</td>
+            <td>{{ r.Related_Ob_3 }}</td>
+            <td>{{ r.Related_Ob_4 }}</td>
+            <td>{{ r.Related_Ob_5 }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="scase_id" type="hidden" value="{{ r.SCase_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

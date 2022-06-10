@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Polices</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">P_Name</th>
+            <th width="100">Department</th>
+            <th width="100">P_ID</th>
+            <th width="100">Degree</th>
+            <th width="100"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in result_police %}
+        <tr>
+            <td>{{ r.P_Name }}</td>
+            <td>{{ r.Department }}</td>
+            <td>{{ r.P_ID }}</td>
+            <td>{{ r.Degree }}</td>
+            <td>
+                <form action="/delete" method="post">
+                    <input name="p_id" type="hidden" value="{{ r.P_ID }}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
