@@ -1,5 +1,20 @@
-from flask import Flask, render_template, request, redirect
-from configurations import db, PLACES, PLACEOFOCCUR, tmp_data
+from flask import Flask, render_template, request, redirect, send_file
+from configurations import db, PLACES, PLACEOFOCCUR, tmp_data, pd_df
+import logging
+import sys
+
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logging.basicConfig(filename='user_log.log') # 還不知道這個file會幹嘛
+
+handler = logging.StreamHandler(sys.stderr)
+handler.setFormatter(formatter)
+
+logger = logging.getLogger()
+logger.addHandler(logging.FileHandler('msg_info.log'))
+logger.addHandler(handler)
+
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = -1 # to refresh immediately in development
@@ -24,6 +39,7 @@ def greet():
     tmp_data['place'] = place
     if not tmp_data['name'] or tmp_data['place'] not in PLACES: # make sure not missing any user input
         return render_template('missing_info.html')
+    logger.log(logging.INFO, f"{tmp_data['name']},{tmp_data['place']},login")
     return render_template('greet.html', name=name, place=place)
 
 
@@ -36,8 +52,6 @@ def back():
 def insert():
     if True:
         # suspect
-        # DELETE FROM SUSPECT WHERE S_ID = 's000';
-        #'s000', 'HELEN', 'MALE', '20000102', 'Taipei', 'Student', 'TAIWAN', 'college', '0920666666', 'NORMAL', 'Yes', 'Neg'
         insert_suspect_S_ID = request.form.get('insert_suspect_S_ID')
         insert_suspect_S_Name = request.form.get('insert_suspect_S_Name')
         insert_suspect_S_Gender = request.form.get('insert_suspect_S_Gender')
@@ -52,9 +66,6 @@ def insert():
         insert_suspect_Urine_Routine = request.form.get('insert_suspect_Urine_Routine')
     if True:
         # case
-        # DELETE FROM CRIMINAL_CASE WHERE Case_ID = '5';
-        # 'case5', '5', 'Drug', 's004', '20210903', 'TAINAN', '5', 'E5', '3', '8', '7'
-        # INSERT INTO CRIMINAL_CASE (Case_Name, Case_ID, Case_Type, Sus_ID, TimeOfOccur, PlaceOfOccur, Drug_ID, Evidence_ID, Police_ID1, Police_ID2, Police_ID3) VALUES('case5', '5', 'Drug', 's004', '20210903', 'TAINAN', '5', 'E5', '3', '8', '7')
         insert_case_Case_Name = request.form.get('insert_case_Case_Name')
         insert_case_Case_ID = request.form.get('insert_case_Case_ID')
         insert_case_Case_Type = request.form.get('insert_case_Case_Type')
@@ -91,22 +102,27 @@ def insert():
     if insert_d_exhibit_DCase_ID and insert_d_exhibit_DExhibit_ID:
         db.execute("INSERT INTO DRUG_EXHIBIT (DCase_ID, DExhibit_ID, Drug, NetWeight, Weight, PreTestResult, ProTestResult) VALUES(?, ?, ?, ?, ?, ?, ?)", insert_d_exhibit_DCase_ID, insert_d_exhibit_DExhibit_ID, insert_d_exhibit_Drug, insert_d_exhibit_NetWeight, insert_d_exhibit_Weight, insert_d_exhibit_PreTestResult, insert_d_exhibit_ProTestResult)
         tmp_data['DExhibit_ID'] = 'ALL'
+        logger.log(logging.info, f"{tmp_data['name']} insert d_exhibit data: {insert_d_exhibit_DCase_ID, insert_d_exhibit_DExhibit_ID, insert_d_exhibit_Drug, insert_d_exhibit_NetWeight, insert_d_exhibit_Weight, insert_d_exhibit_PreTestResult, insert_d_exhibit_ProTestResult}")
         return redirect('/result_d_exhibit')
     elif insert_case_Case_ID and insert_case_Case_Name:
         db.execute("INSERT INTO CRIMINAL_CASE (Case_Name, Case_ID, Case_Type, Sus_ID, TimeOfOccur, PlaceOfOccur, Drug_ID, Evidence_ID, Police_ID1, Police_ID2, Police_ID3) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", insert_case_Case_Name, insert_case_Case_ID, insert_case_Case_Type, insert_case_Sus_ID, insert_case_TimeOfOccur, insert_case_PlaceOfOccur, insert_case_Drug_ID, insert_case_Evidence_ID, insert_case_Police_ID1, insert_case_Police_ID2, insert_case_Police_ID3)
         tmp_data['Case_ID'] = 'ALL'
+        logger.log(logging.info, f"{tmp_data['name']} insert case data: {insert_case_Case_Name, insert_case_Case_ID, insert_case_Case_Type, insert_case_Sus_ID, insert_case_TimeOfOccur, insert_case_PlaceOfOccur, insert_case_Drug_ID, insert_case_Evidence_ID, insert_case_Police_ID1, insert_case_Police_ID2, insert_case_Police_ID3}")
         return redirect('/result_case')
     elif insert_police_P_ID and insert_police_P_Name:
         db.execute("INSERT INTO POLICE (P_Name, Department, P_ID, Degree) VALUES(?, ?, ?, ?)", insert_police_P_Name, insert_police_Department, insert_police_P_ID, insert_police_Degree)
         tmp_data['P_ID'] = 'ALL'
+        logger.log(logging.info, f"{tmp_data['name']} insert police data: {insert_police_P_Name, insert_police_Department, insert_police_P_ID, insert_police_Degree}")
         return redirect('/result_police')
     elif insert_seizure_SCase_ID and insert_seizure_Exhibit_ID:
         db.execute("INSERT INTO SEIZURE_of_EXHIBIT (SCase_ID, Exhibit_ID, Related_Ob_1, Related_Ob_2, Related_Ob_3, Related_Ob_4, Related_Ob_5) VALUES(?, ?, ?, ?, ?, ?, ?)", insert_seizure_SCase_ID, insert_seizure_Exhibit_ID, insert_seizure_Related_Ob_1, insert_seizure_Related_Ob_2, insert_seizure_Related_Ob_3, insert_seizure_Related_Ob_4, insert_seizure_Related_Ob_5)
         tmp_data['SCase_ID'] = 'ALL'
+        logger.log(logging.info, f"{tmp_data['name']} insert seizure data: {insert_seizure_SCase_ID, insert_seizure_Exhibit_ID, insert_seizure_Related_Ob_1, insert_seizure_Related_Ob_2, insert_seizure_Related_Ob_3, insert_seizure_Related_Ob_4, insert_seizure_Related_Ob_5}")
         return redirect('/result_seizure')
     elif insert_suspect_S_ID and insert_suspect_S_Name:
         db.execute("INSERT INTO SUSPECT (S_ID, S_Name, S_Gender, S_Birth, S_Birthplace, S_Occ, S_Add, Education_Level, Phone_Num, Economic_Status, Recidivism, Urine_Routine) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", insert_suspect_S_ID, insert_suspect_S_Name, insert_suspect_S_Gender, insert_suspect_S_Birth, insert_suspect_S_Birthplace, insert_suspect_S_Occ, insert_suspect_S_Add, insert_suspect_Education_Level, insert_suspect_Phone_Num, insert_suspect_Economic_Status, insert_suspect_Recidivism, insert_suspect_Urine_Routine)
         tmp_data['S_ID'] = 'ALL'
+        logger.log(logging.info, f"{tmp_data['name']} insert suspect data: {insert_suspect_S_ID, insert_suspect_S_Name, insert_suspect_S_Gender, insert_suspect_S_Birth, insert_suspect_S_Birthplace, insert_suspect_S_Occ, insert_suspect_S_Add, insert_suspect_Education_Level, insert_suspect_Phone_Num, insert_suspect_Economic_Status, insert_suspect_Recidivism, insert_suspect_Urine_Routine}")
         return redirect('/result_suspect')
 
 
@@ -128,14 +144,19 @@ def search():
     tmp_data['SCase_ID'] = SCase_ID
 
     if S_ID:
+        logger.log(logging.INFO, f"{tmp_data['name']} search suspect with S_ID: {S_ID}")
         return redirect('/result_suspect')
     elif DExhibit_ID:
+        logger.log(logging.INFO, f"{tmp_data['name']} search d_exhibit with DExhibit_ID: {DExhibit_ID}")
         return redirect('/result_d_exhibit')
     elif Case_ID:
+        logger.log(logging.INFO, f"{tmp_data['name']} search case with Case_ID: {Case_ID}")
         return redirect('/result_case')
     elif P_ID:
+        logger.log(logging.INFO, f"{tmp_data['name']} search police with P_ID: {P_ID}")
         return redirect('/result_police')
     elif SCase_ID:
+        logger.log(logging.INFO, f"{tmp_data['name']} search seizure with SCase_ID: {SCase_ID}")
         return redirect('/result_seizure')
     elif not S_ID and not DExhibit_ID and not Case_ID and not P_ID and not SCase_ID:
         return render_template('/missing_info_all.html')
@@ -148,8 +169,10 @@ def advanced_search():
     place_of_occur = request.form.get('place_of_occur')
     tmp_data['place_of_occur'] = place_of_occur
     if Case_ID_advanced:
+        logger.log(logging.INFO, f"{tmp_data['name']} search case_advanced with Case_ID: {Case_ID_advanced}")
         return redirect('/result_case_advanced')
     elif place_of_occur:
+        logger.log(logging.INFO, f"{tmp_data['name']} search case with place_of_occur: {place_of_occur}")
         return redirect('/result_place_advanced')
 
 
@@ -178,49 +201,59 @@ def insert_seizure():
 def result_suspect():
     if tmp_data['S_ID'] == 'ALL':
         result_suspect = db.execute("SELECT * FROM SUSPECT")
+        pd_df(result_suspect).to_csv('tmp_df.csv')
         return render_template('result/result_suspect.html', result_suspect=result_suspect)
     result_suspect = db.execute("SELECT * FROM SUSPECT WHERE S_ID = ?", tmp_data['S_ID'])
+    pd_df(result_suspect).to_csv('tmp_df.csv')
     return render_template('result/result_suspect.html', result_suspect=result_suspect)
 
 @app.route('/result_case')
 def result_case():
     if tmp_data['Case_ID'] == 'ALL':
         result_case = db.execute("SELECT * FROM CRIMINAL_CASE")
+        pd_df(result_case).to_csv('tmp_df.csv')
         return render_template('result/result_case.html', result_case=result_case)
     result_case = db.execute("SELECT * FROM CRIMINAL_CASE WHERE Case_ID = ?", tmp_data['Case_ID'])
+    pd_df(result_case).to_csv('tmp_df.csv')
     return render_template('result/result_case.html', result_case=result_case)
 
 @app.route('/result_d_exhibit')
 def result_d_exhibit():
     if tmp_data['DExhibit_ID'] == 'ALL':
         result_d_exhibit = db.execute("SELECT * FROM DRUG_EXHIBIT")
+        pd_df(result_d_exhibit).to_csv('tmp_df.csv')
         return render_template('result/result_d_exhibit.html', result_d_exhibit=result_d_exhibit)
     result_d_exhibit = db.execute("SELECT * FROM DRUG_EXHIBIT WHERE DExhibit_ID = ?", tmp_data['DExhibit_ID'])
+    pd_df(result_d_exhibit).to_csv('tmp_df.csv')
     return render_template('result/result_d_exhibit.html', result_d_exhibit=result_d_exhibit)
 
 @app.route('/result_police')
 def result_police():
     if tmp_data['P_ID'] == 'ALL':
         result_police = db.execute("SELECT * FROM POLICE")
+        pd_df(result_police).to_csv('tmp_df.csv')
         return render_template('result/result_police.html', result_police=result_police)
     result_police = db.execute("SELECT * FROM POLICE WHERE P_ID = ?", tmp_data['P_ID'])
+    pd_df(result_police).to_csv('tmp_df.csv')
     return render_template('result/result_police.html', result_police=result_police)
 
 @app.route('/result_seizure')
 def result_seizure():
     if tmp_data['SCase_ID'] == 'ALL':
         result_seizure = db.execute("SELECT * FROM SEIZURE_of_EXHIBIT")
+        pd_df(result_seizure).to_csv('tmp_df.csv')
         return render_template('result/result_seizure.html', result_seizure=result_seizure)
     result_seizure = db.execute("SELECT * FROM SEIZURE_of_EXHIBIT WHERE SCase_ID = ?", tmp_data['SCase_ID'])
+    pd_df(result_seizure).to_csv('tmp_df.csv')
     return render_template('result/result_seizure.html', result_seizure=result_seizure)
 
 
 @app.route('/result_place_advanced')
 def result_place_advanced():
     result_place_advanced = db.execute("SELECT * FROM CRIMINAL_CASE WHERE PlaceOfOccur = ?", tmp_data['place_of_occur'])
+    pd_df(result_place_advanced).to_csv('tmp_df.csv')
     count = db.execute("SELECT COUNT(*) FROM CRIMINAL_CASE WHERE PlaceOfOccur = ?", tmp_data['place_of_occur'])
     return render_template('result/result_place_advanced.html', result_place_advanced=result_place_advanced, count=count)
-
 
 @app.route('/result_case_advanced')
 def result_case_advanced():
@@ -249,18 +282,23 @@ def delete():
     tmp_data['scase_id'] = scase_id
     if s_id:
         db.execute("DELETE FROM SUSPECT WHERE S_ID = ?", tmp_data['s_id'])
+        logger.log(logging.INFO, f"{tmp_data['name']} delete SUSPECT WHERE S_ID: {tmp_data['s_id']}")
         return redirect('/result_suspect')
     elif dexhibit_ID:
         db.execute("DELETE FROM DRUG_EXHIBIT WHERE DExhibit_ID = ?", tmp_data['dexhibit_ID'])
+        logger.log(logging.INFO, f"{tmp_data['name']} delete DRUG_EXHIBIT WHERE DExhibit_ID: {tmp_data['dexhibit_ID']}")
         return redirect('/result_d_exhibit')
     elif case_ID:
         db.execute("DELETE FROM CRIMINAL_CASE WHERE Case_ID = ?", tmp_data['case_ID'])
+        logger.log(logging.INFO, f"{tmp_data['name']} delete CRIMINAL_CASE WHERE Case_ID: {tmp_data['case_ID']}")
         return redirect('/result_case')
     elif p_id:
         db.execute("DELETE FROM POLICE WHERE P_ID = ?", tmp_data['p_id'])
+        logger.log(logging.INFO, f"{tmp_data['name']} delete POLICE WHERE P_ID: {tmp_data['p_id']}")
         return redirect('t/result_police')
     elif scase_id:
         db.execute("DELETE FROM SEIZURE_of_EXHIBIT WHERE SCase_ID = ?", tmp_data['scase_id'])
+        logger.log(logging.INFO, f"{tmp_data['name']} delete SEIZURE_of_EXHIBIT WHERE SCase_ID: {tmp_data['scase_id']}")
         return redirect('/result_seizure')
 
 
@@ -268,6 +306,13 @@ def delete():
 def advanced():
     tmp_data['state'] = 'advanced'
     return render_template('/advanced.html', name=tmp_data['name'], place=tmp_data['place'], places=PLACEOFOCCUR)
+
+
+@app.route('/return-files/')
+def return_files_tut():
+    logger.log(logging.INFO, f"{tmp_data['name']} download csv")
+	
+    return send_file('tmp_df.csv', attachment_filename='tmp_df.csv')
 
 
 if __name__ == '__main__':

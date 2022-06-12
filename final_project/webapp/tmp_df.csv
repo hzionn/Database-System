@@ -1,0 +1,6 @@
+,S_Name,S_Gender,S_Birth,S_Birthplace,S_Occ,S_ID,S_ADD,Education_Level,Phone_Num,Economic_Status,Recidivism,Urine_Routine
+0,HELEN,MALE,20000102,Taipei,Student,s000,TAIWAN,college,0920666666,NORMAL,Yes,Neg
+1,Sandy,Female,19910618,Taipei,Doctor,s002,TAIWAN,college,0978556784,NORMAL,NO,Pos
+2,Jane,MALE,19920812,Taipei,Chef,s003,TAIWAN,college,0967885423,NORMAL,NO,Neg
+3,Jerry,Female,19900713,Yunlin,Teacher,s004,TAIWAN,college,0923897827,NORMAL,NO,Neg
+4,Jerry,Female,19900713,Yunlin,Teacher,s001,TAIWAN,college,0923897827,NORMAL,NO,Neg
